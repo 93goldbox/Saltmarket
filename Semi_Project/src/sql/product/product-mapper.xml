@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="selectListCount">
+		SELECT COUNT(*) PCOUNT
+		  FROM PRODUCT
+		 WHERE PRODUCT_STATUS = 'Y'
+	</entry>
+	<entry key="selectListCountCategory">
+		SELECT COUNT(*) PCOUNT
+		  FROM PRODUCT
+		 WHERE PRODUCT_STATUS = 'Y'
+		   AND CATEGORY_NO = ?
+	</entry>
+	<entry key="selectListCountKeyword">
+		SELECT COUNT(*) PCOUNT
+		  FROM PRODUCT
+		 WHERE PRODUCT_STATUS = 'Y'
+		   AND PRODUCT_NAME LIKE ?
+	</entry>
+	
+	<!-- 상품 전체 조회 -->
+	<entry key="selectList">
+ 		SELECT * 
+		  FROM (
+		      SELECT ROWNUM RNUM
+		         , A.*
+		      FROM (SELECT P.PRODUCT_NO
+		                 , PRODUCT_NAME
+		                 , PRICE
+		                 , P.DELETE_STATUS
+		                 , P.CATEGORY_NO
+		                 , P.USER_NO
+		                 , P.REGION_NO
+                         , I.FILE_PATH || CHANGE_FILE_NAME "TITLEIMG"
+		              FROM PRODUCT P
+		              JOIN CATEGORY C ON (P.CATEGORY_NO = C.CATEGORY_NO)
+		              JOIN USER_INFO U ON (P.USER_NO = U.USER_NO)
+                      JOIN IMG_FILE I ON (P.PRODUCT_NO = I.PRODUCT_NO)
+		             WHERE P.PRODUCT_STATUS = 'Y'
+		             ORDER BY P.CREATED_AT DESC
+		            ) A
+		        )
+		 WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<!-- 단순 상품 전체 조회 -->
+	<entry key="selectListNoPage">
+ 		SELECT P.PRODUCT_NO
+             , PRODUCT_NAME
+             , PRICE
+             , P.DELETE_STATUS
+             , P.CATEGORY_NO
+             , P.USER_NO
+             , P.REGION_NO
+             , I.FILE_PATH || CHANGE_FILE_NAME "TITLEIMG"
+          FROM PRODUCT P
+          JOIN CATEGORY C ON (P.CATEGORY_NO = C.CATEGORY_NO)
+          JOIN USER_INFO U ON (P.USER_NO = U.USER_NO)
+                JOIN IMG_FILE I ON (P.PRODUCT_NO = I.PRODUCT_NO)
+         WHERE P.PRODUCT_STATUS = 'Y'
+         ORDER BY P.CREATED_AT DESC
+	</entry>
+	
+	<!-- 프로필:염도, 등급 -->
+	<entry key="selectSellerProfile">
+		SELECT *
+		  FROM USER_INFO
+		 WHERE STATUS = 'Y'
+	</entry>
+	<entry key="selectSellerProfileGrade">
+		SELECT GRADE_NAME
+		  FROM USER_INFO
+		  JOIN GRADE USING (GRADE_NO)
+	</entry>
+	<!-- 프로필용 상품 전체 조회 -->
+	<entry key="selectProfileImgFile">
+	SELECT FILE_PATH || CHANGE_NAME "TITLEIMG"
+           FROM PROFILE_IMG
+           JOIN PRODUCT USING (USER_NO)
+          WHERE PRODUCT_NO = ?
+	</entry>
+	
+	<!-- 단순 카테고리 노출용 -->
+	<entry key="selectCategoryList">
+		SELECT * 
+		  FROM CATEGORY
+	</entry>
+	
+	<!-- 카테고리별 조회 -->
+	<entry key="selectCategoryFilter">
+    SELECT * 
+	 FROM (
+		 SELECT ROWNUM RNUM
+			      , A.*
+			      FROM (SELECT P.PRODUCT_NO
+						     , PRODUCT_NAME
+						     , PRICE
+						     , P.DELETE_STATUS
+						     , P.CATEGORY_NO
+						     , P.USER_NO
+						     , P.REGION_NO
+						     , I.FILE_PATH || CHANGE_FILE_NAME "TITLEIMG"
+						  FROM PRODUCT P
+						  JOIN CATEGORY C ON (P.CATEGORY_NO = C.CATEGORY_NO)
+						  JOIN IMG_FILE I ON (P.PRODUCT_NO = I.PRODUCT_NO)
+						 WHERE P.CATEGORY_NO = C.CATEGORY_NO
+						   AND P.PRODUCT_STATUS = 'Y'
+						   AND P.CATEGORY_NO = ?
+						 ORDER BY P.CREATED_AT DESC
+				        ) A
+			)
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	<!-- 검색 기능 -->
+	<entry key="selectSearchList">
+       SELECT * 
+		  FROM (
+		      SELECT ROWNUM RNUM
+		         , A.*
+		      FROM (SELECT P.PRODUCT_NO
+		                 , PRODUCT_NAME
+		                 , PRICE
+		                 , P.DELETE_STATUS
+		                 , P.CATEGORY_NO
+		                 , P.USER_NO
+		                 , P.REGION_NO
+                         , I.FILE_PATH || CHANGE_FILE_NAME "TITLEIMG"
+		              FROM PRODUCT P
+		              JOIN CATEGORY C ON (P.CATEGORY_NO = C.CATEGORY_NO)
+		              JOIN USER_INFO U ON (P.USER_NO = U.USER_NO)
+                      JOIN IMG_FILE I ON (P.PRODUCT_NO = I.PRODUCT_NO)
+		             WHERE P.PRODUCT_STATUS = 'Y'
+					   AND PRODUCT_NAME LIKE ?
+					   AND P.DELETE_STATUS = 'N'
+		             ORDER BY P.CREATED_AT DESC
+		            ) A
+		        )
+		 WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<!-- 상세 조회수 -->
+	<entry key="increaseCount">
+		UPDATE PRODUCT
+		   SET PRODUCT_VIEWS = PRODUCT_VIEWS + 1
+		 WHERE PRODUCT_NO = ?
+		   AND PRODUCT_STATUS = 'Y'
+	</entry>
+	<!-- 상품 상세 조회 -->
+	<entry key="selectProduct">
+ 		SELECT P.PRODUCT_NO
+		     , C.CATEGORY_NAME CN
+		     , PRODUCT_NAME
+		     , PRODUCT_STATUS
+		     , PRICE
+		     , PRODUCT_VIEWS
+		     , DESCRIPTION
+		     , P.USER_NO
+		     , P.CREATED_AT
+		     , I.FILE_PATH || CHANGE_FILE_NAME "TITLEIMG"
+		  FROM PRODUCT P
+		  LEFT JOIN CATEGORY C ON (P.CATEGORY_NO = C.CATEGORY_NO)
+		  JOIN USER_INFO U ON (P.USER_NO = U.USER_NO)
+		  JOIN IMG_FILE I ON (P.PRODUCT_NO = I.PRODUCT_NO)
+		 WHERE P.PRODUCT_NO = ?
+		   AND PRODUCT_STATUS = 'Y'
+		   AND P.DELETE_STATUS = 'N'
+	</entry>
+
+
+	
+
+	<!-- 카테고리용 이미지 -->
+	<entry key="selectThumbnailList">
+		SELECT PRODUCT_NO
+		     , PRODUCT_NAME
+		     , PRODUCT_VIEWS
+		     , FILE_PATH || CHANGE_FILE_NAME "TITLEIMG"
+		  FROM PRODUCT P
+		  JOIN IMG_FILE USING (PRODUCT_NO)
+		 WHERE PRODUCT_STATUS = 'Y'
+		   AND FILE_LEVEL = 1
+		 ORDER BY P.CREATED_AT DESC
+	</entry>
+	<!-- 상세페이지용 이미지 -->
+	<entry key="selectImgFile">
+		SELECT FILE_NO
+		     , ORIGIN_NAME
+		     , CHANGE_FILE_NAME
+		     , FILE_PATH || CHANGE_FILE_NAME "TITLEIMG"
+		  FROM IMG_FILE
+		 WHERE PRODUCT_NO = ?
+	</entry>
+	
+	<!-- 찜 -->
+	<entry key="selectWishListCheck">
+		SELECT COUNT(*) CNT
+		  FROM WISHLIST
+		 WHERE USER_NO = ?
+		   AND PRODUCT_NO = ?
+	</entry>
+	<entry key="selectWishList">
+		SELECT P.PRODUCT_NO
+		     , PRODUCT_NAME
+		     , PRICE
+		     , I.FILE_PATH || CHANGE_FILE_NAME "TITLEIMG"
+		     , W.WISHLIST_NO
+		  FROM USER_INFO U
+		  JOIN WISHLIST W ON (U.USER_NO = W.USER_NO)
+		  JOIN PRODUCT P ON (U.USER_NO = P.USER_NO)
+		  LEFT JOIN IMG_FILE I ON (P.PRODUCT_NO = I.PRODUCT_NO)
+		 WHERE U.USER_NO = 1
+		   AND W.PRODUCT_NO = P.PRODUCT_NO
+	</entry>
+	<entry key="insertWishList">
+		INSERT INTO WISHLIST VALUES(SEQ_WISHLIST.NEXTVAL, ?, ?)
+	</entry>
+	<entry key="deleteWishList">
+		DELETE FROM WISHLIST
+		 WHERE USER_NO = ?
+		   AND PRODUCT_NO = ?
+	</entry>
+		
+	<!-- 판매자 프로필 조회 -->
+	<entry key="selectRegion">
+		SELECT REGION_NAME
+		  FROM REGION
+          JOIN USER_INFO USING (REGION_NO)
+         WHERE USER_NO = ?
+	</entry>
+	<entry key="selectMemberGrade">
+		SELECT GRADE_NAME
+		  FROM USER_INFO
+		  JOIN GRADE USING (GRADE_NO)
+		 WHERE USER_NO = ?
+	</entry>
+	
+	<!-- 신고 -->
+	<entry key="insertDeclare">
+		INSERT INTO DECLARATION(DECLARE_NO
+                      , DECLARE_TITLE
+                      , DECLARE_CONTENT
+                      , DECLARE_TYPE
+                      , DECLARE_DATE
+                      , USER_NO) 
+                VALUES(SEQ_DECLARATION.NEXTVAL
+                     , ?
+                     , ?
+                     , '거래'
+                     , DEFAULT
+                     , ?)
+	</entry>
+	<!-- 신고 이미지 -->
+	<entry key="insertDeclareImg">
+         INSERT INTO IMG_FILE (FILE_NO
+		         			, ORIGIN_NAME
+		                    , CHANGE_FILE_NAME
+		                    , FILE_PATH
+		                    , FILE_LEVEL
+		                    , PRODUCT_NO)
+		           	 VALUES (SEQ_IMG_FILE.NEXTVAL
+		                    , ?
+		                    , ?
+		                    , ?
+		                    , 1
+		                    ,SEQ_PRODUCT.CURRVAL)
+	</entry>
+	
+	<!-- 평점매기기 -->
+	<entry key="updateScore">
+	     UPDATE USER_INFO
+            SET SALTY_SCORE = ? + SALTY_SCORE
+          WHERE USER_NO = ?
+	</entry>
+	<!-- 판매자프로필 점수 조회 -->
+	<entry key="selectSellCount">
+		SELECT COUNT(*) PCOUNT
+		  FROM PRODUCT
+		 WHERE PRODUCT_STATUS = 'Y'
+		   AND USER_NO = ?
+	</entry>
+	<!-- rank -->
+	<entry key="selectProductRank">
+		SELECT *
+		      FROM (
+		         SELECT PRODUCT_NO
+		              , PRODUCT_NAME
+		              , PRICE
+		              , PRODUCT_VIEWS
+		              , FILE_PATH || CHANGE_FILE_NAME "TITLEIMG"
+		           FROM PRODUCT
+		           JOIN IMG_FILE USING (PRODUCT_NO)
+		          WHERE PRODUCT_STATUS = 'Y'
+		          ORDER BY PRODUCT_VIEWS DESC
+		          )
+		      WHERE ROWNUM &lt;=3
+	</entry>
+	
+	<!--  -->
+	<entry key="selectDeclareList">
+	
+		SELECT DECLARE_NO,
+				DECLARE_TITLE,
+				DECLARE_CONTENT,
+				DECLARE_TYPE,
+				DECLARE_CHECK,
+				DECLARE_DATE,
+				DECLARE_REASON,
+				DECLARE_CHECK_DATE,
+				USER_NO,
+				USER_ID
+		FROM DECLARATION
+		JOIN USER_INFO USING (USER_NO)
+		ORDER BY DECLARE_NO DESC
+	</entry>
+
+	<entry key="selectProductDeclare">
+		SELECT DECLARE_NO,
+				DECLARE_TITLE,
+				DECLARE_CONTENT,
+				DECLARE_TYPE,
+				DECLARE_CHECK,
+				DECLARE_DATE,
+				DECLARE_REASON,
+				DECLARE_CHECK_DATE,
+				USER_NO,
+				USER_ID
+		FROM DECLARATION
+		JOIN USER_INFO USING (USER_NO)
+		WHERE DECLARE_NO = ?
+	</entry>
+
+	<entry key="updateDeclare">
+		UPDATE DECLARATION
+		SET DECLARE_CHECK = ?,
+			DECLARE_REASON = ?,
+			DECLARE_CHECK_DATE = SYSDATE
+		WHERE DECLARE_NO = ?
+	</entry>
+
+	<entry key="selectCommunityDeclare">
+		SELECT DECLARE_NO,
+				DECLARE_TITLE,
+				DECLARE_CONTENT,
+				DECLARE_TYPE,
+				DECLARE_CHECK,
+				DECLARE_DATE,
+				DECLARE_REASON,
+				DECLARE_CHECK_DATE,
+				USER_NO,
+				USER_ID,
+				FREE_BOARD_NO,
+				SHARE_BOARD_NO
+		FROM DECLARATION
+		JOIN USER_INFO USING (USER_NO)
+		WHERE DECLARE_NO = ?
+	</entry>
+</properties>

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="selectListCount">
+		SELECT COUNT(*) COUNT
+		FROM NOTICE
+		WHERE DELETE_STATUS = 'N'
+	</entry>
+	
+	<entry key="selectNoticeList">
+		SELECT *
+		FROM (
+			SELECT ROWNUM RNUM
+			, A.*
+			FROM (
+				SELECT NOTICE_NO
+				, NOTICE_TITLE
+				, CREATE_DATE
+				FROM NOTICE 
+				WHERE DELETE_STATUS = 'N'
+				ORDER BY NOTICE_NO DESC
+			) A
+		)
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+
+	<entry key="selectManageNoticeList">
+		
+		SELECT NOTICE_NO
+				, NOTICE_TITLE
+				, NOTICE_CONTENT
+				, NOTICE_VIEWS
+				, CREATE_DATE
+				, DELETE_STATUS
+				FROM NOTICE 
+				WHERE DELETE_STATUS = 'N'
+				ORDER BY NOTICE_NO DESC
+		
+	</entry>
+
+	<entry key="selectCsNoticeList">
+		SELECT *
+		FROM(SELECT NOTICE_NO
+				, NOTICE_TITLE
+				, CREATE_DATE
+				FROM NOTICE 
+				WHERE DELETE_STATUS = 'N'
+				ORDER BY NOTICE_NO DESC)
+		WHERE ROWNUM&lt;=5
+	</entry>
+
+	<entry key="increaseViewCount">
+		UPDATE NOTICE
+		SET NOTICE_VIEWS = NOTICE_VIEWS + 1
+		WHERE NOTICE_NO = ?
+		AND DELETE_STATUS = 'N'
+	</entry>
+
+	<entry key="selectNotice">
+		SELECT NOTICE_NO
+		    , NOTICE_TITLE
+		    , NOTICE_CONTENT
+		    , NOTICE_VIEWS
+		    , CREATE_DATE
+		FROM NOTICE 
+		WHERE DELETE_STATUS = 'N'
+		AND NOTICE_NO = ?
+	</entry>
+
+	<entry key="insertNotice">
+		INSERT INTO NOTICE (NOTICE_NO
+                , NOTICE_TITLE
+                , NOTICE_CONTENT
+                , CREATE_DATE)
+        values( SEQ_NOTICE.NEXTVAL
+                , ?
+                , ?
+                , DEFAULT)
+	</entry>
+
+    <entry key="insertAttachmentList">
+		INSERT INTO ATTACHMENT(FILE_NO
+		                     , REF_NNO
+		                     , ORIGIN_NAME
+		                     , CHANGE_NAME
+		                     , FILE_PATH)
+		                VALUES(SEQ_ATTACHMENT.NEXTVAL
+		                     , SEQ_NOTICE.CURRVAL
+		                     , ?
+		                     , ?
+		                     , ?)
+	</entry>
+
+	<entry key="insertNewAttachmentList">
+		INSERT INTO ATTACHMENT(FILE_NO
+		                     , REF_NNO
+		                     , ORIGIN_NAME
+		                     , CHANGE_NAME
+		                     , FILE_PATH)
+		                VALUES(SEQ_ATTACHMENT.NEXTVAL
+		                     , ?
+		                     , ?
+		                     , ?
+		                     , ?)
+	</entry>
+
+	<entry key="selectAttachment">
+		SELECT FILE_NO
+		     , ORIGIN_NAME
+		     , CHANGE_NAME
+		     , FILE_PATH
+		  FROM ATTACHMENT
+		 WHERE REF_NNO = ?
+	</entry>
+	
+	<entry key="updateNotice">
+		UPDATE NOTICE
+		   SET NOTICE_TITLE = ?
+		     , NOTICE_CONTENT = ?
+		 WHERE NOTICE_NO = ?
+	</entry>
+	
+	<entry key="updateAttachmentList">
+		UPDATE ATTACHMENT
+		   SET ORIGIN_NAME = ?
+		     , CHANGE_NAME = ?
+		     , FILE_PATH = ?
+		     , UPLOAD_DATE = SYSDATE
+		 WHERE FILE_NO = ?
+	</entry>
+
+	<entry key="deleteNotice">
+		UPDATE NOTICE
+		   SET DELETE_STATUS = 'Y'
+		 WHERE NOTICE_NO = ?
+	</entry>
+
+	
+</properties>

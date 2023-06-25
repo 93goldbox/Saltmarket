@@ -1,0 +1,448 @@
+/***** common 공통 속성들 *****/
+.paging-area {
+    display: flex;
+    justify-content: center;
+    margin-top : 5px;
+    margin-bottom: 10px;
+}
+
+.paging-area button {
+    margin-left: 5px;
+}
+
+#outer {
+    width : 1200px;
+    margin: auto;
+}
+
+#center {
+    font-family: 'Gowun Dodum', sans-serif;
+    width: 1100px;
+    padding: 0 15%;
+    margin: auto;
+}
+
+.black {
+    color: black;
+}
+.text-deco {
+    text-decoration: none;
+}
+
+.underline-none {
+    text-decoration: none;
+}
+
+.underline-none:hover {
+    text-decoration: underline;
+    color: black;
+}
+
+.boardtitle {
+    margin-bottom: 6px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+}
+
+#centertitle {
+    color: black;
+    margin-top: 14px;
+    margin-bottom: 0px;
+    padding-left: 3px;
+    font-size: 35px;
+}
+#centertitle a {
+    color: black;
+    text-decoration: none;
+}
+#centertitle a:hover {
+    color: #6ad4fd;
+    text-decoration: none;
+}
+
+
+#board-date {
+    margin-left: auto;
+    margin-right: 3px;
+}
+
+#board-content {
+    border: 1px solid lightgray;
+    margin-top: 3px;
+    padding: 10px;
+}
+
+#bestdiv {
+    display: flex;
+    justify-content: center;
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    margin-top: 5px;
+}
+
+/***** bestlist 부분 *****/
+.bestlist-area {
+    margin-top: 3px;
+    margin-bottom: 3px;
+    box-sizing: border-box;
+    width: 48%;
+}
+.bestlist-area td:nth-child(1) {
+    width: 0px;
+}
+.bestlist-area td:nth-child(2) {
+    width: 14px;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+}
+.bestlist-area td:nth-child(3) {
+    padding-left: 3px;
+    padding-right: 3px;
+    font-size: 13px;
+    text-shadow: 0.1px 0.1px black;
+    max-width: 180px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.bestlist-area td:nth-child(4) {
+    width: 25px;
+    font-size: 10px;
+    font-weight: bold;
+}
+.bestlist-area td:nth-child(5) {
+    width: 33px;
+    font-size: 10px;
+    font-weight: bold;
+}
+.bestlist-area>tbody>tr:hover {
+    background-color: rgb(243, 243, 243);
+    cursor: pointer;
+}
+
+/***** 카테고리 부분 *****/
+.category {
+    float: left;
+}
+
+/***** 목록조회 검색부분 *****/
+.search-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.search-container select {
+    border: 1px solid gray;
+    font-size: 14px;
+    height: 26px;
+}
+.search-container input {
+    border: 1px solid gray;
+    font-size: 14px;
+    height: 26px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+select:focus, input:focus {
+    outline: none;
+}
+#listhead {
+    margin-top: 0px;
+}
+
+.list-area {
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.list-area th {
+    border-top: 1px solid gray;
+    border-bottom: 1px solid gray;
+}
+
+.list-area td {
+    border-bottom: 1px solid lightgray;
+    text-shadow: 0.1px 0.1px black;
+}
+
+.list-area>tbody>tr:hover {
+    background-color: rgb(243, 243, 243);
+    cursor: pointer;
+}
+
+
+
+.list-area {
+    margin-top: 10px;
+}
+
+.list-area th {
+    background-color: lightgray;
+}
+
+.list-area td {
+    padding: 4px;
+    font-size: 13px;
+}
+.list-area td:nth-child(3) {
+    max-width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.list-area td:nth-child(4) {
+    font-size: 10px;
+}
+
+.list-area td:nth-child(5) {
+    font-size: 12px;
+}
+
+
+/********** 상세보기 boardDetailView **********/
+#board-info {
+    margin-top: 5px;
+    padding-left: 3px;
+    display: flex;
+    align-items: center;
+    /* 세로 중앙 정렬 */
+}
+/* 상세보기 제목 + 번호 부분 */
+.black.boardtitle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#board-info .fa-comment-dots, #board-info .fa-eye {
+    margin-left: 12px;
+    margin-right: 5px;
+ }
+
+#board-info a {
+    margin-right: 2px;
+}
+
+.inline {
+    display: inline;
+}
+
+#categorytitle{
+    font-size: 15px;
+    text-shadow: 0.1px 0.1px black;
+    display: inline;
+}
+/* 삭제 모달창 닫기 버튼 css */
+button.close {
+    background-color: lightgray;
+    border: none;
+    border-radius: 5px;
+}
+
+/* 좋아요싫어요 수정삭제 버튼 css */
+#board-bottom {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#update-delete, #like-dislike {
+    display: flex;
+    align-items: center;
+}
+#update-delete {
+    margin-right: 10px;
+}
+#board-bottom #like-dislike button {
+    margin-left: 3px;
+}
+#board-bottom #update-delete button {
+    margin-left: 10px;
+}
+i.fas.fa-user {
+    margin-top: 5px;
+}
+
+pre {
+    font-family: 'Gowun Dodum', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+}
+.btn-margin {
+    margin-left: 5px;
+}
+
+/* 이미지 파일 첨부 부분 */
+img {
+    padding: 10px;
+    padding-bottom: 5px;
+}
+.image-list {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 0px;
+    border-top: 1px solid lightgray;
+}
+
+.image-item {
+    flex-basis: 33.33%;
+    padding: 5px;
+}
+
+.image-item img {
+    width: 100%;
+    height: auto;
+}
+
+.image-item a, .image-item p {
+    display: block;
+    padding: 5px;
+    text-align: center;
+}
+.image-item p button {
+    margin-left: 8px;
+}
+.image-item p {
+    margin-bottom: 0px;
+}
+
+
+/***** 댓글부분 *****/
+/* 댓글 날짜부분 */
+.comment-date {
+    margin-top: 5px;
+    margin-left: 10px;
+    margin-right: 3px;
+    font-size: 12px;
+}
+/* 댓글 : <- 이부분 */
+#comment-title {
+    margin-right: 5px;
+}
+.comment-content {
+    margin-bottom: 0px;
+}
+.comment {
+    border-top: 1px solid lightgray;
+    padding: 5px;
+}
+/* 댓글 회원아이콘 여백 css */
+.comment-info i {
+    margin-right: 5px;
+}
+/* 댓글 전체영역 아래 보더 구분선 css */
+.comments {
+    border-bottom: 1px solid lightgray;
+}
+/* 댓글 수정/삭제 버튼 마진 */
+.comment-btns a {
+    font-size: 12px;
+    margin-left: 5px;
+}
+/* 댓글 수정/삭제 버튼 호버 */
+.comment-btns a:hover {
+    color: #6ad4fd;
+    cursor: pointer;
+}
+.comment-info {
+    display: flex;
+}
+/* 댓글 수정폼 css */
+.update-form textarea {
+    width: 400px;
+    height: 80px;
+    margin-right: 5px;
+    resize: none;
+}
+  
+
+
+
+
+/***** 좋아요버튼 호버 시 빙글뱅글 *****/
+.clear-button {
+    border: none;
+    background-color: transparent;
+}
+
+#like:hover i,
+#dislike:hover i {
+    animation: fa-spin 1s infinite linear;
+}
+
+@keyframes fa-spin {
+    0% {
+        transform: rotate(0);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/***** boardEnrollForm *****/
+#form-submit {
+    margin-top: 20px;
+    text-align: center;
+
+}
+#form-submit button {
+    margin-right: 10px;
+}
+#enrollhead {
+    padding-top: 8px;
+    padding-left: 3px;
+    padding-right: 3px;
+    padding-bottom: 8px;
+    border-top: 1px solid lightgray;
+}
+#enrollhead input {
+    width: 100%;
+    box-sizing: border-box;
+}
+/* 파일관련 버튼 상단 마진설정 */
+.filebtn-margin {
+    margin-top: 10px;
+}
+.filebtn {
+    font-size: 12px;
+}
+/* 파일선택버튼 위에 미리보기 위치*/
+.file-input input {
+    padding-left: 15px;
+    width: 175px;
+}
+/* 파일선택부분 삭제버튼 css */
+.remove-btn {
+    background-color: rgb(255, 97, 97);
+    color: white;
+    font-size: 10px;
+    border: none;
+    border-radius: 5px;
+    margin-left: 30px;
+}
+.remove-btn:hover {
+    background-color: red;
+}
+
+/***** noticeListView *****/
+#listhead-notice {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#listhead-notice h1 {
+    display: inline-block;
+}
+
+#listhead-notice .search-container {
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: 30px;
+}

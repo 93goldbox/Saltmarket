@@ -1,0 +1,16 @@
+/*****  send message *****/
+.find-btn{
+    text-align: center;
+}
+.find-btn1{
+    display :inline-block;
+}
+
+/*****  note received  *****/
+
+.pagination {
+
+    justify-content: center;
+    /* 페이징바 중앙 */
+
+}

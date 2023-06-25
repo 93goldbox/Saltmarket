@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<properties>
+	
+	<!-- 지역 데이터 읽어오기 -->
+	<entry key="selectRegionList">
+		SELECT *
+		FROM REGION
+	</entry>
+	
+	<!-- 상품 정보 INSERT  -->
+	<entry key="insertProduct">
+		INSERT INTO PRODUCT (PRODUCT_NO
+                    ,PRODUCT_NAME
+                    ,PRICE
+                    ,DESCRIPTION
+                    ,CATEGORY_NO 
+                    ,USER_NO
+                    ,REGION_NO)
+            VALUES(SEQ_PRODUCT.NEXTVAL
+                    ,?
+                    ,?
+                    ,?
+                    ,?
+                    ,?
+                    ,?)
+	</entry>
+	
+	<!-- 업로드한 이미지 파일 INSERT -->
+	<entry key="insertProductImgList">
+		
+		INSERT INTO IMG_FILE (FILE_NO
+			         			, ORIGIN_NAME
+			                    , CHANGE_FILE_NAME
+			                    , FILE_PATH
+			                    , FILE_LEVEL
+			                    , PRODUCT_NO)
+			            VALUES (SEQ_IMG_FILE.NEXTVAL
+			                    , ?
+			                    , ?
+			                    , ?
+			                    , ?
+			                    ,SEQ_PRODUCT.CURRVAL)
+	</entry>
+	
+	<!--상품 삭제  --> 
+	<entry key="deleteProduct">
+		UPDATE PRODUCT
+			SET DELETE_STATUS = 'Y'
+		WHERE PRODUCT_NO = ?
+	</entry>
+	
+	<!-- 이미지 조회용  -->
+	<entry key="selectImageFileList">
+		SELECT *
+		FROM IMG_FILE
+	 		WHERE PRODUCT_NO = ?
+	</entry>	
+	
+	<!-- 상품 업데이트용 -->
+	
+	<entry key="updateProduct">
+		UPDATE PRODUCT
+   				SET PRODUCT_NAME = ?
+		        , PRODUCT_STATUS = ?
+		        , PRICE = ?
+		        , CREATED_AT = SYSDATE
+		        , DESCRIPTION = ?
+		        , CATEGORY_NO = ?
+		        , REGION_NO = ?
+		WHERE PRODUCT_NO = ?
+	</entry>
+	
+	<entry key="updateImgFile">
+			UPDATE IMG_FILE
+			    SET ORIGIN_NAME = ?
+			        , CHANGE_FILE_NAME = ?
+			        , FILE_PATH = ?
+			        , CREATED_AT = SYSDATE
+			WHERE FILE_NO = ?
+	</entry>
+	
+	<!-- 상품전체 정보 읽어오기 -->
+	<entry key="selectProductList">
+		SELECT *
+		FROM PRODUCT
+	</entry>
+	
+	
+</properties>

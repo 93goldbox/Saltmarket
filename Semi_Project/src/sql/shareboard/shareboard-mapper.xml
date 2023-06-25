@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<entry key="selectListCount">
+			SELECT COUNT(*) COUNT
+           FROM SHARE_BOARD
+        WHERE DELETE_STATUS = 'Y'
+        	AND (REGION_NO = ? OR ? = 0)
+        	AND (SHARE_STATUS = ? OR ? = 'A')
+	</entry>
+	
+	<entry key="selectRegionList">
+		SELECT *
+		FROM REGION
+	</entry>
+	
+	<entry key="selectTitleSearchListCount">
+		SELECT COUNT(*) COUNT
+           FROM SHARE_BOARD
+        WHERE DELETE_STATUS = 'Y'
+        	AND (REGION_NO = ? OR ? = 0)
+            AND (SHARE_STATUS = ? OR ? = 'A')
+        	AND BOARD_TITLE LIKE ?
+	</entry>
+	
+	<entry key="selectNameSearchListCount">
+		SELECT COUNT(*) COUNT
+           FROM SHARE_BOARD S
+           JOIN USER_INFO U ON (U.USER_NO = S.USER_NO)
+        WHERE DELETE_STATUS = 'Y'
+        	AND (S.REGION_NO = ? OR ? = 0)
+            AND (SHARE_STATUS = ? OR ? = 'A')
+        	AND USER_NAME LIKE ?
+	</entry>
+	
+	<entry key="selectList">
+		SELECT *
+		FROM
+				(
+				    SELECT ROWNUM RNUM
+				        , A.*
+				    FROM (SELECT SHARE_BOARD_NO
+				         , REGION_NAME
+				         , USER_NAME
+				         , BOARD_TITLE
+				         , CREATED_DATE
+				         , BOARD_VIEWS
+				         , SHARE_STATUS
+				         , (SELECT COUNT(*)
+		                    FROM REPLY RP
+		                    WHERE S.SHARE_BOARD_NO = RP.SHARE_BOARD_NO
+		                    	 AND DELETE_STATUS = 'Y') REPLYCOUNT
+				      FROM SHARE_BOARD S
+				      JOIN USER_INFO U ON (U.USER_NO = S.USER_NO)
+		              JOIN REGION RG ON (RG.REGION_NO = S.REGION_NO)
+				     WHERE DELETE_STATUS = 'Y'
+				     	  AND (S.REGION_NO = ? OR ? = 0)
+		                  AND (S.SHARE_STATUS = ? OR ? = 'A')
+				     ORDER BY S.SHARE_BOARD_NO DESC
+				     ) A
+		 		)
+		 WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="selectTitleSearchList">
+			SELECT *
+		FROM
+		(
+		    SELECT ROWNUM RNUM
+		        , A.*
+		    FROM (SELECT SHARE_BOARD_NO
+		         , REGION_NAME
+		         , BOARD_TITLE
+		         , USER_NAME
+		         , BOARD_VIEWS
+		         , CREATED_DATE
+		         , SHARE_STATUS
+		         , (SELECT COUNT(*)
+                    FROM REPLY RP
+                    WHERE S.SHARE_BOARD_NO = RP.SHARE_BOARD_NO
+                      AND DELETE_STATUS = 'Y') REPLYCOUNT
+		      FROM SHARE_BOARD S
+		      JOIN USER_INFO U ON (U.USER_NO = S.USER_NO)
+              JOIN REGION RG ON (RG.REGION_NO = S.REGION_NO)
+		     WHERE DELETE_STATUS = 'Y'
+		     	  AND (S.REGION_NO = ? OR ? = 0)
+                  AND (S.SHARE_STATUS = ? OR ? = 'A')
+                  AND BOARD_TITLE LIKE ?
+		     ORDER BY CREATED_DATE DESC
+		     ) A
+		 )
+		 WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="selectNameSearchList">
+			SELECT *
+		FROM
+		(
+		    SELECT ROWNUM RNUM
+		        , A.*
+		    FROM (SELECT SHARE_BOARD_NO
+		         , REGION_NAME
+		         , BOARD_TITLE
+		         , USER_NAME
+		         , BOARD_VIEWS
+		         , CREATED_DATE
+                 , SHARE_STATUS
+		         , (SELECT COUNT(*)
+                    FROM REPLY RP
+                    WHERE S.SHARE_BOARD_NO = RP.SHARE_BOARD_NO
+                      AND DELETE_STATUS = 'Y') REPLYCOUNT
+		      FROM SHARE_BOARD S
+		      JOIN USER_INFO U ON (U.USER_NO = S.USER_NO)
+              JOIN REGION RG ON (RG.REGION_NO = S.REGION_NO)
+		     WHERE DELETE_STATUS = 'Y'
+		     	  AND (S.REGION_NO = ? OR ? = 0)
+                  AND (S.SHARE_STATUS = ? OR ? = 'A')
+                  AND USER_NAME LIKE ?
+		     ORDER BY CREATED_DATE DESC
+		     ) A
+		 )
+		 WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="selectBestList">
+				SELECT *
+			FROM(
+			    SELECT ROWNUM RNUM, R.*
+			    FROM (
+			        SELECT SHARE_BOARD_NO
+			             , BOARD_TITLE
+                         , SHARE_STATUS
+			             , BOARD_VIEWS
+			             , (SELECT COUNT(*)
+		                    FROM REPLY RP
+		                    WHERE S.SHARE_BOARD_NO = RP.SHARE_BOARD_NO
+		                         AND DELETE_STATUS = 'Y') REPLYCOUNT
+			          FROM SHARE_BOARD S
+			         WHERE DELETE_STATUS = 'Y'
+			          AND (REGION_NO = ? OR ? = 0)
+			          AND CREATED_DATE >= SYSDATE - 30
+			      ORDER BY BOARD_VIEWS DESC
+			    ) R
+			)
+				WHERE RNUM BETWEEN 1 AND 10
+	</entry>
+	
+	<entry key="increaseCount">
+		UPDATE SHARE_BOARD
+	          SET BOARD_VIEWS = BOARD_VIEWS + 1
+	    WHERE SHARE_BOARD_NO = ?
+	         AND DELETE_STATUS = 'Y'
+	</entry>
+
+	<entry key="selectBoard">
+		SELECT SHARE_BOARD_NO
+		 , S.USER_NO
+	     , USER_NAME
+	     , BOARD_TITLE
+	     , BOARD_CONTENT
+	     , CREATED_DATE
+	     , BOARD_VIEWS
+	     , REGION_NAME
+	     , S.REGION_NO
+         , SHARE_STATUS
+	     , (SELECT COUNT(*)
+             FROM REPLY RP
+             WHERE S.SHARE_BOARD_NO = RP.SHARE_BOARD_NO
+             	  AND DELETE_STATUS = 'Y') REPLYCOUNT
+	  FROM SHARE_BOARD S
+	  JOIN USER_INFO U ON (U.USER_NO = S.USER_NO)
+      JOIN REGION RG ON (RG.REGION_NO = S.REGION_NO)
+	 WHERE SHARE_BOARD_NO = ?
+	   AND DELETE_STATUS = 'Y'
+	</entry>
+	
+	<entry key="insertBoard">
+			INSERT INTO SHARE_BOARD(SHARE_BOARD_NO
+                    , USER_NO
+	                , BOARD_TITLE
+	                , BOARD_CONTENT
+	                , REGION_NO)
+	           VALUES(SEQ_SHARE_BOARD.NEXTVAL
+	                , ?
+	                , ?
+	                , ?
+	                , ?)
+	</entry>
+	
+	<entry key="insertImgFile">
+	   INSERT INTO IMG_FILE(FILE_NO
+	                     , SHARE_BOARD_NO
+	                     , ORIGIN_NAME
+	                     , CHANGE_FILE_NAME
+	                     , FILE_PATH
+                         , FILE_LEVEL)
+	                VALUES(SEQ_IMG_FILE.NEXTVAL
+	                     , SEQ_SHARE_BOARD.CURRVAL
+	                     , ?
+	                     , ?
+	                     , ?
+                         , ?)
+	</entry>
+	
+	<entry key="selectImgFile">
+		SELECT FILE_NO
+			     , ORIGIN_NAME
+			     , CHANGE_FILE_NAME
+			     , FILE_PATH
+			  FROM IMG_FILE
+	 	WHERE SHARE_BOARD_NO = ?
+	 		 AND DELETE_STATUS = 'N'
+	</entry>
+	
+	<entry key="updateBoard">
+		UPDATE SHARE_BOARD
+              SET BOARD_TITLE = ?
+                  , BOARD_CONTENT = ?
+                  , REGION_NO = ? 
+                  , SHARE_STATUS = ?
+        WHERE SHARE_BOARD_NO = ?
+	</entry>
+	
+	<entry key="deleteImgFile">
+		UPDATE IMG_FILE
+		      SET DELETE_STATUS = 'Y'
+		 WHERE FILE_NO = ?
+	</entry>
+	
+	<entry key="updateImgFile">
+		INSERT INTO IMG_FILE(FILE_NO
+		              					  , SHARE_BOARD_NO
+		            				      , ORIGIN_NAME
+		       				              , CHANGE_FILE_NAME
+		              					  , FILE_PATH
+		             				      , FILE_LEVEL)
+		          			   VALUES(SEQ_IMG_FILE.NEXTVAL
+		                				  , ?
+		      					          , ?
+		  					              , ?
+		                				  , ?
+		                  				  , ?)
+	</entry>
+	
+	<entry key="deleteBoard">
+		UPDATE SHARE_BOARD
+			  SET DELETE_STATUS = 'N'
+ 		WHERE SHARE_BOARD_NO = ?
+	</entry>
+	
+	<entry key="insertReply">
+			INSERT INTO REPLY(REPLY_NO
+                        , SHARE_BOARD_NO
+                        , REPLY_CONTENT
+	              		, USER_NO)
+	       		   VALUES(SEQ_REPLY.NEXTVAL
+                        , ?
+	             		, ?
+                        , ?)
+	</entry>
+	
+	<entry key="selectReplyList">
+				SELECT REPLY_NO
+				  , R.USER_NO
+	   			  , REPLY_CONTENT
+	  		      , USER_NAME
+	   			  , TO_CHAR(CREATED_DATE, 'YY/MM/DD HH:MI:SS') CREATED_DATE
+	      FROM REPLY R
+	 	    JOIN USER_INFO U ON (R.USER_NO = U.USER_NO)
+	 	WHERE DELETE_STATUS = 'Y'
+	 	    AND SHARE_BOARD_NO = ?
+   ORDER BY CREATED_DATE DESC
+	</entry>
+	
+	<entry key="deleteReply">
+				UPDATE REPLY
+           SET DELETE_STATUS = 'N'
+	     WHERE REPLY_NO = ?
+	</entry>
+	
+	<entry key="updateReply">
+			UPDATE REPLY
+              SET REPLY_CONTENT = ?
+        WHERE REPLY_NO = ?
+	</entry>
+	
+	<entry key="selectLike">
+		SELECT LIKE_COUNT
+    		      , DISLIKE_COUNT
+  		  FROM SHARE_BOARD
+        WHERE SHARE_BOARD_NO = ?
+	</entry>
+	
+	<entry key="updateLike">
+		UPDATE SHARE_BOARD
+   			  SET LIKE_COUNT = LIKE_COUNT + 1
+ 		 WHERE SHARE_BOARD_NO = ?
+	</entry>
+	
+	<entry key="updateDislike">
+		UPDATE SHARE_BOARD
+   			  SET DISLIKE_COUNT = DISLIKE_COUNT + 1
+ 		 WHERE SHARE_BOARD_NO = ?
+	</entry>
+	
+</properties>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

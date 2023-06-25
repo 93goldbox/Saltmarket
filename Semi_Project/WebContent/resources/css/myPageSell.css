@@ -1,0 +1,207 @@
+
+
+        body { font-family: 'Gowun Dodum', sans-serif; }
+
+        div {
+            box-sizing: border-box;
+        }
+        
+        .wrap_content>div {  width: 100%; }
+
+        #profile {
+            border: 3px solid #BFE9F9;
+            width: 1024px;
+            margin: auto;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: black;
+        }
+
+        .nav a:hover { font-weight: bold; }
+
+        #profile img { margin: 20px; }
+
+        input.btn {
+            float: right;
+            margin: 20px;
+            background-color: #BFE9F9;
+            color: black;
+            border: none;
+        }
+
+        .nav-item i {
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 5px;
+        }
+
+        .nav-item a {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+         /* my-info */
+        .mypage {
+            margin: 0;
+            padding: 0;
+        }
+        .my-info-titl {
+            background-color: #BFE9F9;
+            padding: 1rem;
+            font-size: 1.3rem;
+            margin: 0;
+        }
+        .my-info-titl a{
+            color: white;
+            font-size: 1.3rem;
+            margin: 0;
+        }
+        .my-info-titl a:hover {
+            color: white;
+        }
+        .my-info-box img {
+            display: none;
+        }
+        .my-info-box {
+            background-color: #BFE9F9;
+            height: 150px;
+        }
+        .my-info-box .my-img {
+            width: 100px;
+            height: 100px;
+            background-color: white;
+            background-repeat: no-repeat;
+            background-size: 80%;
+            background-position: center;
+            margin: 1rem 0 0 3rem;
+            border-radius: 50%;
+            float: left;
+        }
+        .my-info-box .my-info-dsec {
+            margin: 16px 0 0 2rem;
+            float: left;
+        }
+        .my-info-box .my-info-dsec .my-name {
+            color: white;
+            display: inline;
+        }
+        .my-info-box .my-info-dsec .link-modify {
+            color: gray;
+            text-decoration: none;
+            margin-left: 1em;
+            font-size: 0.8rem;
+        }
+        .my-info-box .my-info-dsec .link-modify:hover {
+            color: white; 
+        }
+        .my-info-box .my-info-dsec {
+            color: gray;
+            text-decoration: none;
+            font-size: 0.8rem;
+        }
+        .my-info-box .my-menu-list {
+            width: 350px;
+            padding: 0;
+            float: right;
+            display: flex;
+            justify-content: space-around;
+            list-style: none;
+            margin: 0 50px 0 0;
+        }
+        .my-info-box .my-menu-item {
+            color: white;
+            font-size: 2rem;
+            line-height: 1em;
+        }
+        .my-info-box .my-menu-item:hover {
+            color: white;
+        }
+        .my-info-box .my-menu-item > div {
+            font-size: 0.8rem;
+        }
+        .my-info-box::after {
+            content: "";
+            clear: both;
+            display: block;
+        }
+
+        /* nav */
+        .nav {
+            box-sizing: border-box;
+            width: 170px;
+            line-height: 2rem;
+            padding: 1em;
+            float: left;
+        }
+        .nav .nav-list {
+            margin: 0;
+        }
+        .nav .nav-list .titl {
+            font-size: 1rem;
+            font-weight: bold;
+        }
+        .nav .nav-list .nav-item {
+            font-size: 0.8rem;
+            margin: 0;
+        }
+        .nav .nav-list .nav-item a {
+            color: gray;
+            text-decoration: none;
+        }
+        .nav .nav-list .nav-item a:hover {
+            font-weight: bold;
+        }
+
+        /* 최근 본 상품 */
+        .view-product {
+            box-sizing: border-box;
+            padding: 1em;
+            width: calc(1024px - 200px);
+            float: left;
+        }
+        .view-product img {
+            width: 100px;
+            height: 100px;
+        }
+        .view-pro-container {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 -1rem;
+        }
+        .view-pro-container .view-pro-item {
+            box-sizing: border-box;
+            width: 25%;
+            padding: 0 1rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .view-pro-container .view-pro-item .pro-dsc {
+            text-align: left;
+            padding: 0 21px;
+            margin-top: 7px;
+        }
+        .view-pro-container .view-pro-item .pro-dsc .company {
+            font-size: 12px;
+        }
+        .view-pro-container .view-pro-item .pro-dsc .name {
+            font-size: 14px;
+            font-weight: bold;
+            margin-top: 7px;
+        }
+        .view-pro-container .view-pro-item .pro-dsc .sale-price {
+            margin-top: 8px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .view-pro-container .view-pro-item .pro-dsc span {
+            color: orangered;
+            margin-left: 50px;
+        }
+        .view-pro-container .view-pro-item .pro-dsc .price {
+            color: lightgray;
+            text-decoration: line-through;
+            font-size: 9px;
+            margin-top: 3px;
+        }

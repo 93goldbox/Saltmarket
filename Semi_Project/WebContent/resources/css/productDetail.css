@@ -1,0 +1,50 @@
+@charset "utf-8";
+
+/* font */
+    <!-- 구글 Gowun Dodum 폰트 적용 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+
+/* productDetail */
+
+/* .pname1{
+    width: 200px !important;
+} */
+
+.pcontent1{justify-content: center;}
+.pcard1{
+    justify-content: center;
+    margin-left: 100px;
+}
+.thumb1{
+    display:flex !important;
+    gap:15px;
+    width: 100px;
+    height: 120px !important;
+}
+.thumbImg1{width:50px; height:50px;}
+.card1{
+    max-width: 700px !important;
+    border:none !important;
+}
+.prow1{
+    margin-top: 30px !important;
+    display: flex !important;
+}
+.svgIcon{color: red;}
+.socialSvg{display: none;}
+.pimg1{
+    height:80%; 
+    margin-top: 80px; 
+    border-radius: 5px;
+}
+
+.prow2{
+    display: flex;
+    margin: 5px !important;
+}
+.row11{display: flex; align-items: center; justify-content: center;}
+
+.slide { display: none; }
+.declareBtn1{all:unset;}

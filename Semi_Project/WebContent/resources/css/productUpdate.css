@@ -1,0 +1,261 @@
+.col {
+   width: 100%;
+   height: 100%;
+}
+   
+.container{
+   width: 100%;
+   height: 100%;
+}
+
+#product-title, #sell-category, #area, #sellPrice, #content, #amount, #image, #sell-submit,#product-status {
+   border-top : solid 1px rgb(180, 180, 180);
+   font-family: 'Gowun Dodum', sans-serif;    
+}
+
+#product-title  {
+   height : 100px;
+}
+#product-title>.row {
+   height : 100%;
+}
+#product-title>.row>.col {
+  margin : 0 auto;
+  overflow: hidden;
+  display:flex;
+  align-items:center; 
+  justify-content: center;
+}
+#product-title>.row>.col>h2 {
+  margin : 0 0 0 0;
+}
+#product-title>.row>.col-9 {
+  margin : 0 auto;
+  overflow: hidden;
+  display:flex;
+  align-items:center; 
+}
+#product-title>.row>.col-9>#productName {
+   width : 400px;
+   height : 40px;
+}
+
+
+#sell-category {
+   height : 180px;
+}
+#sell-category>.row {
+   height : 100%;
+}
+#sell-category>.row>.col {
+  margin : 0 auto;
+  overflow: hidden;
+  display:flex;
+  align-items:center; 
+  justify-content: center;
+}
+#sell-category>.row>.col>h2 {
+  margin : 0 0 0 0;
+}
+#sell-category>.row>.col-9 {
+  margin : 0 auto;
+  overflow: hidden;
+  display:flex;
+  align-items:center; 
+}
+#sell-category>.row>.col-9>table {
+  height : 100%;
+  width : 80%;
+}
+
+
+#area {
+   height : 100px;
+   }
+#area>.row {
+   height : 100%;
+}
+#area>.row>.col {
+  margin : 0 auto;
+  overflow: hidden;
+  display:flex;
+  align-items:center; 
+  justify-content: center;
+}
+#area>.row>.col>h2 {
+  margin : 0 0 0 0;
+}
+#area>.row>.col-9 {
+  margin : 0 auto;
+  overflow: hidden;
+  display:flex;
+  align-items:center; 
+}
+#region {
+   width: 400px;
+}
+#sell-category>.row>.col-9>select {
+   width : 400px;
+   height : 40px;
+}
+
+.btn {
+   background-color: rgb(191, 233, 249);
+   color : white;
+   font-size: 15px;
+}
+.btn:hover {
+   background-color: rgb(191, 233, 249);
+   color : white;
+   font-size: 20px;
+}
+
+#sellPrice {
+   height : 100px;
+}
+#sellPrice>.row {
+   height : 100%;
+}
+#sellPrice>.row>.col {
+  margin : 0 auto;
+  overflow: hidden;
+  display:flex;
+  align-items:center; 
+  justify-content: center;
+}
+#sellPrice>.row>.col>h2 {
+  margin : 0 0 0 0;
+}
+#sellPrice>.row>.col-9 {
+  margin : 0 auto;
+  overflow: hidden;
+  display:flex;
+  align-items:center; 
+}
+#sellPrice>.row>.col-9>table {
+   height: 100%;
+   width: 600px;
+}
+#sellPrice>.row>.col-9>h4 {
+   margin : 0 0 0 0;
+}
+
+
+#content {
+   height : 300px;
+}
+#content>.row {
+   height : 100%;
+}
+#content>.row>.col {
+  margin : 0 auto;
+  overflow: hidden;
+  display:flex;
+  align-items:center; 
+  justify-content: center;
+}
+#content>.row>.col>h2 {
+  margin : 0 0 0 0;
+}
+#content>.row>.col-9 {
+  margin : 0 auto;
+  overflow: hidden;
+  display:flex;
+  align-items:center; 
+}
+#content>.row>.col-9>textarea {
+   resize: none;
+}
+
+#image {
+   height : 350px;
+}
+#image>.row {
+   height : 100%;
+}
+#image>.row>.col {
+  margin : 0 auto;
+  overflow: hidden;
+  display:flex;
+  align-items:center; 
+  justify-content: center;
+}
+#image>.row>.col>h2 {
+  margin : 0 0 0 0;
+}
+#image>.row>.col-9 {
+  margin : 0 auto;
+  overflow: hidden;
+  display:flex;
+  align-items:center; 
+}
+#image>.row>.col-9>file-image>table {
+   width : 980px;
+   height : 350px;
+   table-layout : fixed;
+}
+#fileInput>td>input {
+   width : 150px;
+   height: 70px;
+}
+
+#product-status {
+   height : 100px;
+}
+#product-status>.row {
+   height : 100%;
+}
+#product-status>.row>.col {
+  margin : 0 auto;
+  overflow: hidden;
+  display:flex;
+  align-items:center; 
+  justify-content: center;
+}
+#product-status>.row>.col>h2 {
+  margin : 0 0 0 0;
+}
+#product-status>.row>.col-9 {
+  margin : 0 auto;
+  overflow: hidden;
+  display:flex;
+  align-items:center; 
+}
+#product-status>.row>.col-9>input {
+   height: 20px;
+   width: 20px;
+}
+#product-status>.row>.col-9>label {
+   height: 20px;
+   width: 300px;
+   font-size : 20px;
+}
+
+
+
+#update-submit {
+   height : 50px;
+}
+#update-submit>.row {
+   height : 100%;
+}
+#update-submit>.row>.col {
+  height : 100%;
+  margin : 0 auto;
+  overflow: hidden;
+  display:flex;
+  align-items:center; 
+  justify-content: flex-end;
+}
+#update-submit>.row>.col>input {
+  height: 40px;
+  width: 150px;
+}
+#update-submit-btn {
+   background-color: rgb(191, 233, 249);
+   color : white;
+   border-color: white;
+   font-size: 25px;
+}
+
+

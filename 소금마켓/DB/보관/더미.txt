@@ -1,0 +1,169 @@
+-- 시퀀스 생성구문
+CREATE SEQUENCE SEQ_UNO;
+CREATE SEQUENCE SEQ_DNO;
+CREATE SEQUENCE SEQ_PNO;
+CREATE SEQUENCE SEQ_SNO;
+CREATE SEQUENCE SEQ_TNO;
+CREATE SEQUENCE SEQ_CNO;
+CREATE SEQUENCE SEQ_QNO;
+CREATE SEQUENCE SEQ_MNO;
+CREATE SEQUENCE SEQ_NOTICE;
+CREATE SEQUENCE SEQ_NOTE;
+CREATE SEQUENCE SEQ_REPLY;
+CREATE SEQUENCE SEQ_REGION;
+CREATE SEQUENCE SEQ_INO;
+CREATE SEQUENCE SEQ_FNO;
+
+
+-- 더미
+INSERT INTO REGION VALUES(1, '서울시 마포구');
+INSERT INTO REGION VALUES(2, '부산시 해운대구');
+INSERT INTO REGION VALUES(3, '대전시 유성구');
+INSERT INTO REGION VALUES(4, '인천시 남동구');
+INSERT INTO REGION VALUES(5, '대구시 동구');
+
+INSERT INTO GRADE
+VALUES (1, '히말라야 핑크솔트', 70, 99.9);
+INSERT INTO GRADE
+VALUES (2, '트러플 솔트', 45, 69.9);
+INSERT INTO GRADE
+VALUES (3, '천일염', 30, 44.9);
+INSERT INTO GRADE
+VALUES (4, '맛소금', 15, 29.9);
+INSERT INTO GRADE
+VALUES (5, '나트륨', 0, 14.9);
+
+INSERT INTO CATEGORY VALUES(SEQ_CNO.NEXTVAL, '디지털 가전');
+INSERT INTO CATEGORY VALUES(SEQ_CNO.NEXTVAL, '가구/인테리어');
+INSERT INTO CATEGORY VALUES(SEQ_CNO.NEXTVAL, '의류');
+INSERT INTO CATEGORY VALUES(SEQ_CNO.NEXTVAL, '음반/악기');
+INSERT INTO CATEGORY VALUES(SEQ_CNO.NEXTVAL, '뷰티/미용');
+
+INSERT INTO USER_INFO
+VALUES (SEQ_UNO.NEXTVAL, 'pass1234', '관리자1', DEFAULT, '01011112222', 'admin01@kh.or.kr', 'admin01', SYSDATE, DEFAULT, DEFAULT, 3, 1);
+INSERT INTO USER_INFO
+VALUES (SEQ_UNO.NEXTVAL, 'pass1234', '관리자2', DEFAULT, '01022223333', 'admin02@kh.or.kr', 'admin02', SYSDATE, DEFAULT, DEFAULT, 3, 1);
+INSERT INTO USER_INFO
+VALUES (SEQ_UNO.NEXTVAL, 'pass01', '홍길동', '2000-01-01', '01012345678', 'user01@kh.or.kr', 'user01', SYSDATE, DEFAULT, DEFAULT, 3, 2);
+
+--PRODUCT 더미데이터
+insert into product (product_no, product_name, price, description, category_no, region_no,user_no) values (seq_pno.nextval, 'product1', 10000, 'description1', 1, 1, 1);
+insert into product (product_no, product_name, price, description, category_no, region_no,user_no) values (seq_pno.nextval, 'product2', 20000, 'description2', 1, 1, 1);
+insert into product (product_no, product_name, price, description, category_no, region_no,user_no) values (seq_pno.nextval, 'product3', 30000, 'description3', 1, 1, 1);
+insert into product (product_no, product_name, price, description, category_no, region_no,user_no) values (seq_pno.nextval, 'product4', 40000, 'description4', 1, 1, 1);
+insert into product (product_no, product_name, price, description, category_no, region_no,user_no) values (seq_pno.nextval, 'product5', 50000, 'description5', 1, 1, 1);
+
+
+-- 더미데이터
+insert into qna (qna_no, q_title, q_content, a_content, user_no) values ( seq_qno.nextval, 'q_title1', 'q_content1', 'a_content1',1);
+insert into qna (qna_no, q_title, q_content, a_content, user_no) values ( seq_qno.nextval, 'q_title2', 'q_content2', 'a_content2',1);
+insert into qna (qna_no, q_title, q_content, a_content, user_no) values ( seq_qno.nextval, 'q_title3', 'q_content3', 'a_content3',1);
+insert into qna (qna_no, q_title, q_content, a_content, user_no) values ( seq_qno.nextval, 'q_title4', 'q_content4', 'a_content4',1);
+insert into qna (qna_no, q_title, q_content, a_content, user_no) values ( seq_qno.nextval, 'q_title5', 'q_content5', 'a_content5',1);
+
+
+INSERT INTO FREE_BOARD VALUES (SEQ_FNO.NEXTVAL, 1, '정말 힘드네요', '요즘 5000원 안으로 점심1끼 떼울데가 있나요?', '2023-03-01', DEFAULT, DEFAULT, '수다');
+INSERT INTO FREE_BOARD VALUES (SEQ_FNO.NEXTVAL, 2, '장난 똥때리나', ' 어제 무단횡단자 때문에 인생 종칠 뻔', '2023-03-02', DEFAULT, DEFAULT, '수다');
+INSERT INTO FREE_BOARD VALUES (SEQ_FNO.NEXTVAL, 3, '질문 있는데요', ' 지하철에 알리 주문 해 보신 분 있나요?', '2023-03-03', DEFAULT, DEFAULT, '질문');
+INSERT INTO FREE_BOARD VALUES (SEQ_FNO.NEXTVAL, 4, '다이어트하는 꿀팁', ' 올해는 다욧트 반드시 성공합니다 ㅠㅠ ', '2023-03-04', DEFAULT, DEFAULT, '꿀팁');
+INSERT INTO FREE_BOARD VALUES (SEQ_FNO.NEXTVAL, 5, '갸소름', ' 매장 현금영수증 해주는척 소름.. ', '2023-03-05', DEFAULT, DEFAULT, '수다');
+
+
+INSERT INTO SHARE_BOARD VALUES (SEQ_SNO.NEXTVAL, 1, 1, '가방 나눔합니다!!', '필요하신분 연락주세요 감사합니다!!', '2023-03-01', DEFAULT, DEFAULT, DEFAULT);
+INSERT INTO SHARE_BOARD VALUES (SEQ_SNO.NEXTVAL, 2, 2, '포켓몬카드 나눔', '필요하신분 연락주세요 감사합니다!!', '2023-03-02', DEFAULT, DEFAULT, DEFAULT);
+INSERT INTO SHARE_BOARD VALUES (SEQ_SNO.NEXTVAL, 3, 3, '아이폰14PRO MAX 나눔', '필요하신분 연락주세요 감사합니다!!', '2023-03-03', DEFAULT, DEFAULT, DEFAULT);
+INSERT INTO SHARE_BOARD VALUES (SEQ_SNO.NEXTVAL, 4, 4, '갤럭시S23U 나눔', '필요하신분 연락주세요 감사합니다!!', '2023-03-04', DEFAULT, DEFAULT, DEFAULT);
+INSERT INTO SHARE_BOARD VALUES (SEQ_SNO.NEXTVAL, 5, 5, 'LG 그램 노트북 나눔', '필요하신분 연락주세요 감사합니다!!', '2023-03-05', DEFAULT, DEFAULT, DEFAULT);
+
+
+
+INSERT INTO REPLY 
+VALUES (SEQ_RNO.NEXTVAL
+              , 1
+              , 1
+              , '게시판댓글내용1'
+              , '2023-03-01'
+              , DEFAULT);
+
+INSERT INTO REPLY 
+VALUES (SEQ_PNO.NEXTVAL
+              , 2
+              , 2
+              , '게시판댓글내용2'
+              , '2023-03-02'
+              , DEFAULT);
+
+INSERT INTO REPLY 
+VALUES (SEQ_PNO.NEXTVAL
+              , 3
+              , 3
+              , '게시판댓글내용3'
+              , '2023-03-03'
+              , DEFAULT);
+
+INSERT INTO REPLY 
+VALUES (SEQ_PNO.NEXTVAL
+              , 4
+              , 4
+              , '게시판댓글내용4'
+              , '2023-03-04'
+              , DEFAULT);
+
+INSERT INTO REPLY 
+VALUES (SEQ_PNO.NEXTVAL
+              , 5
+              , 5
+              , '게시판댓글내용5'
+              , '2023-03-05'
+              , DEFAULT);
+
+
+
+INSERT INTO NOTE 
+VALUES (SEQ_NNO.NEXTVAL
+              , 1
+              , 1
+              , '2023-03-01'
+              , '쪽지내용1');
+
+INSERT INTO NOTE 
+VALUES (SEQ_NNO.NEXTVAL
+              , 2
+              , 2
+              , '2023-03-02'
+              , '쪽지내용2');
+
+INSERT INTO NOTE 
+VALUES (SEQ_NNO.NEXTVAL
+              , 3
+              , 3
+              , '2023-03-03'
+            , '쪽지내용3');
+
+INSERT INTO NOTE 
+VALUES (SEQ_NNO.NEXTVAL
+              , 4
+              , 4
+              , '2023-03-04'
+              , '쪽지내용4');
+
+INSERT INTO NOTE 
+VALUES (SEQ_NNO.NEXTVAL
+              , 5
+              , 5
+              , '2023-05-05'
+              , '쪽지내용5');
+
+
+
+INSERT INTO DECLARATION VALUES(SEQ_DNO.NEXTVAL, 'title1', 'content1', '커뮤니티', DEFAULT, DEFAULT, 'reason1', DEFAULT, 1, 1, 1);
+INSERT INTO DECLARATION VALUES(SEQ_DNO.NEXTVAL, 'title2', 'content2', '거래', DEFAULT, DEFAULT, 'reason1', DEFAULT, 1 , 1, 1);
+INSERT INTO DECLARATION VALUES(SEQ_DNO.NEXTVAL, 'title3', 'content3', '커뮤니티', 2, DEFAULT, 'reason1', DEFAULT, 1 , 1, 1);
+INSERT INTO DECLARATION VALUES(SEQ_DNO.NEXTVAL, 'title4', 'content4', '거래', 3, DEFAULT, 'reason1', DEFAULT, 1 , 1, 1);
+INSERT INTO DECLARATION VALUES(SEQ_DNO.NEXTVAL, 'title5', 'content5', '커뮤니티', 2, DEFAULT, 'reason1', DEFAULT, 1 , 1, 1);
+
+INSERT INTO TRADE VALUES(SEQ_TNO.NEXTVAL, '2023-04-01', 3, '매너가 좋아요', '2023-04-02', 1, 1);
+INSERT INTO TRADE VALUES(SEQ_TNO.NEXTVAL, '2023-03-01', 1, '별로에요', DEFAULT, 2, 2);
+INSERT INTO TRADE VALUES(SEQ_TNO.NEXTVAL, '2023-02-15', 3, '품질이 나빠요', '2023-03-03', 3, 3);
+INSERT INTO TRADE VALUES(SEQ_TNO.NEXTVAL, '2023-03-05', 2, '좋아요', DEFAULT , 4, 4);
+INSERT INTO TRADE VALUES(SEQ_TNO.NEXTVAL, '2023-02-22', 2, '그냥 그래요', '2023-02-05', 5, 5);

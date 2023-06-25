@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	
+	<entry key="selectListCount">
+		SELECT COUNT(*) COUNT
+		FROM FAQ
+		WHERE DELETE_STATUS = 'N'
+	</entry>
+
+    <entry key="insertQNA">
+		INSERT INTO QNA (QNA_NO
+                , Q_CATEGORY
+                , Q_TITLE
+                , Q_CONTENT
+                , Q_DATE
+                , Q_WRITER)
+        values( SEQ_QNA.NEXTVAL
+                , ?
+                , ?
+                , ?
+                , DEFAULT
+                , ?)
+	</entry>
+
+        <entry key="insertAttachmentList">
+		INSERT INTO ATTACHMENT(FILE_NO
+		                     , REF_QNO
+		                     , ORIGIN_NAME
+		                     , CHANGE_NAME
+		                     , FILE_PATH)
+		                VALUES(SEQ_ATTACHMENT.NEXTVAL
+		                     , SEQ_QNA.CURRVAL
+		                     , ?
+		                     , ?
+		                     , ?)
+	</entry>
+
+    <entry key="selectQNAList">
+		SELECT *
+		FROM (
+			SELECT ROWNUM RNUM
+			, A.*
+			FROM (
+				SELECT QNA_NO
+					, Q_CATEGORY
+					, Q_TITLE
+					, Q_DATE
+					, Q_CONTENT
+					, Q_WRITER
+					, A_CONTENT
+				FROM QNA
+				WHERE Q_WRITER = ?
+				AND DELETE_STATUS = 'N'
+				ORDER BY QNA_NO DESC
+			) A
+		)
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+
+	<entry key="selectQNA">
+		SELECT QNA_NO
+			, Q_CATEGORY
+			, Q_TITLE
+			, Q_CONTENT
+		FROM QNA
+		WHERE QNA_NO = ?
+		AND DELETE_STATUS = 'N'
+	</entry>
+
+	<entry key="updateQNA">
+		UPDATE QNA
+		SET Q_CATEGORY = ?
+			, Q_TITLE = ?
+			, Q_CONTENT = ?
+		WHERE QNA_NO = ?
+	</entry>
+
+	<entry key="updateAttachmentList">
+		UPDATE ATTACHMENT
+		   SET ORIGIN_NAME = ?
+		     , CHANGE_NAME = ?
+		     , FILE_PATH = ?
+		     , UPLOAD_DATE = SYSDATE
+		 WHERE FILE_NO = ?
+	</entry>
+
+	<entry key="insertNewAttachmentList">
+		INSERT INTO ATTACHMENT(FILE_NO
+		                     , REF_QNO
+		                     , ORIGIN_NAME
+		                     , CHANGE_NAME
+		                     , FILE_PATH)
+		                VALUES(SEQ_ATTACHMENT.NEXTVAL
+		                     , ?
+		                     , ?
+		                     , ?
+		                     , ?)
+	</entry>
+
+	<entry key="selectManageQNAList">
+		SELECT QNA_NO
+			, USER_ID
+			, USER_NAME
+			, Q_CATEGORY
+			, Q_TITLE
+			, Q_DATE
+			, EMAIL
+			, PHONE
+			, ANSWER_STATUS
+		FROM QNA
+		JOIN USER_INFO ON (Q_WRITER = USER_NO)
+		WHERE DELETE_STATUS = 'N'
+		ORDER BY QNA_NO DESC
+
+	</entry>
+
+
+	<entry key="selectAttachment">
+		SELECT CHANGE_NAME
+		     , FILE_PATH
+			 , REF_QNO
+		  FROM ATTACHMENT
+		 WHERE REF_QNO = ?
+	</entry>
+
+	<entry key="selectManageQNA">
+		SELECT QNA_NO
+			, Q_CATEGORY
+			, Q_TITLE
+			, Q_DATE
+			, Q_CONTENT
+			, A_CONTENT
+			, USER_ID
+			, USER_NAME
+			, EMAIL
+			, PHONE
+			, A_DATE
+			, ANSWER_STATUS
+		FROM QNA
+		JOIN USER_INFO ON (Q_WRITER = USER_NO)
+		WHERE QNA_NO = ?
+		AND DELETE_STATUS = 'N'
+	</entry>
+
+	<entry key="insertManageQNA">
+		UPDATE QNA
+		SET A_CONTENT = ?
+			, A_DATE = DEFAULT
+			, ANSWER_STATUS = 'Y'
+		WHERE QNA_NO = ?
+	</entry>
+
+	<entry key="updateManageQNA">
+		UPDATE QNA
+		SET A_CONTENT = ?
+			, A_DATE = DEFAULT
+		WHERE QNA_NO = ?
+	</entry>
+
+	<entry key="deleteManageQNA">
+		UPDATE QNA
+		SET DELETE_STATUS = 'Y'
+		WHERE QNA_NO = ?
+	</entry>
+
+	<entry key="deleteQNA">
+		UPDATE QNA
+		SET DELETE_STATUS = 'Y'
+		WHERE QNA_NO = ?
+	</entry>
+
+</properties>

@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<entry key="selectListCount">
+		SELECT COUNT(*) COUNT
+           FROM FREE_BOARD
+        WHERE DELETE_STATUS = 'Y'
+        	AND (CATEGORY = ? OR ? = '전체')
+	</entry>
+	
+	<entry key="selectTitleSearchListCount">
+		SELECT COUNT(*) COUNT
+           FROM FREE_BOARD
+        WHERE DELETE_STATUS = 'Y'
+        	AND (CATEGORY = ? OR ? = '전체')
+        	AND BOARD_TITLE LIKE ?
+	</entry>
+	
+	<entry key="selectNameSearchListCount">
+		SELECT COUNT(*) COUNT
+           FROM FREE_BOARD F
+           JOIN USER_INFO U ON (U.USER_NO = F.USER_NO)
+        WHERE DELETE_STATUS = 'Y'
+        	AND (CATEGORY = ? OR ? = '전체')
+        	AND USER_NAME LIKE ?
+	</entry>
+	
+	<entry key="selectList">
+		SELECT *
+		FROM
+		(
+		    SELECT ROWNUM RNUM
+		        , A.*
+		    FROM (SELECT FREE_BOARD_NO
+		         , CATEGORY
+		         , BOARD_TITLE
+		         , USER_NAME
+		         , BOARD_VIEWS
+		         , CREATED_DATE
+		         , (SELECT COUNT(*)
+                    FROM REPLY R
+                    WHERE F.FREE_BOARD_NO = R.FREE_BOARD_NO
+                    	 AND DELETE_STATUS = 'Y') REPLYCOUNT
+		      FROM FREE_BOARD F
+		      JOIN USER_INFO U ON (U.USER_NO = F.USER_NO)
+		     WHERE DELETE_STATUS = 'Y'
+		     	  AND (CATEGORY = ? OR ? = '전체')
+		     ORDER BY CREATED_DATE DESC
+		     ) A
+		 )
+		 WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="selectTitleSearchList">
+			SELECT *
+		FROM
+		(
+		    SELECT ROWNUM RNUM
+		        , A.*
+		    FROM (SELECT FREE_BOARD_NO
+		         , CATEGORY
+		         , BOARD_TITLE
+		         , USER_NAME
+		         , BOARD_VIEWS
+		         , CREATED_DATE
+		         , (SELECT COUNT(*)
+                    FROM REPLY R
+                    WHERE F.FREE_BOARD_NO = R.FREE_BOARD_NO) REPLYCOUNT
+		      FROM FREE_BOARD F
+		      JOIN USER_INFO U ON (U.USER_NO = F.USER_NO)
+		     WHERE DELETE_STATUS = 'Y'
+		     	  AND (CATEGORY = ? OR ? = '전체')
+                  AND BOARD_TITLE LIKE ?
+		     ORDER BY CREATED_DATE DESC
+		     ) A
+		 )
+		 WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="selectNameSearchList">
+			SELECT *
+		FROM
+		(
+		    SELECT ROWNUM RNUM
+		        , A.*
+		    FROM (SELECT FREE_BOARD_NO
+		         , CATEGORY
+		         , BOARD_TITLE
+		         , USER_NAME
+		         , BOARD_VIEWS
+		         , CREATED_DATE
+		         , (SELECT COUNT(*)
+                    FROM REPLY R
+                    WHERE F.FREE_BOARD_NO = R.FREE_BOARD_NO) REPLYCOUNT
+		      FROM FREE_BOARD F
+		      JOIN USER_INFO U ON (U.USER_NO = F.USER_NO)
+		     WHERE DELETE_STATUS = 'Y'
+		     	  AND (CATEGORY = ? OR ? = '전체')
+                  AND USER_NAME LIKE ?
+		     ORDER BY CREATED_DATE DESC
+		     ) A
+		 )
+		 WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="selectBestList">
+				SELECT *
+			FROM(
+			    SELECT ROWNUM RNUM, R.*
+			    FROM (
+			        SELECT FREE_BOARD_NO
+			             , BOARD_TITLE
+			             , BOARD_VIEWS
+			             , (SELECT COUNT(*)
+		                    FROM REPLY R
+		                    WHERE F.FREE_BOARD_NO = R.FREE_BOARD_NO
+		                         AND DELETE_STATUS = 'Y') REPLYCOUNT
+			          FROM FREE_BOARD F
+			         WHERE DELETE_STATUS = 'Y'
+			          AND (CATEGORY = ? OR ? = '전체')
+			          AND CREATED_DATE >= SYSDATE - 7
+			      ORDER BY BOARD_VIEWS DESC
+			    ) R
+			)
+				WHERE RNUM BETWEEN 1 AND 10
+	</entry>
+	
+	<entry key="increaseCount">
+		UPDATE FREE_BOARD
+	          SET BOARD_VIEWS = BOARD_VIEWS + 1
+	    WHERE FREE_BOARD_NO = ?
+	         AND DELETE_STATUS = 'Y'
+	</entry>
+
+	<entry key="selectBoard">
+		SELECT FREE_BOARD_NO
+		 , F.USER_NO
+	     , USER_NAME
+	     , BOARD_TITLE
+	     , BOARD_CONTENT
+	     , CREATED_DATE
+	     , BOARD_VIEWS
+	     , CATEGORY
+	     , (SELECT COUNT(*)
+             FROM REPLY R
+             WHERE F.FREE_BOARD_NO = R.FREE_BOARD_NO
+             	  AND DELETE_STATUS = 'Y') REPLYCOUNT
+	  FROM FREE_BOARD F
+	  JOIN USER_INFO U ON (U.USER_NO = F.USER_NO)
+	 WHERE FREE_BOARD_NO = ?
+	   AND DELETE_STATUS = 'Y'
+	</entry>
+	
+	<entry key="insertBoard">
+			INSERT INTO FREE_BOARD(FREE_BOARD_NO
+                    , USER_NO
+	                , BOARD_TITLE
+	                , BOARD_CONTENT
+	                , CATEGORY)
+	           VALUES(SEQ_FREE_BOARD.NEXTVAL
+	                , ?
+	                , ?
+	                , ?
+	                , ?)
+	</entry>
+	
+	<entry key="insertImgFile">
+	   INSERT INTO IMG_FILE(FILE_NO
+	                     , FREE_BOARD_NO
+	                     , ORIGIN_NAME
+	                     , CHANGE_FILE_NAME
+	                     , FILE_PATH
+                         , FILE_LEVEL)
+	                VALUES(SEQ_IMG_FILE.NEXTVAL
+	                     , SEQ_FREE_BOARD.CURRVAL
+	                     , ?
+	                     , ?
+	                     , ?
+                         , ?)
+	</entry>
+	
+	<entry key="selectImgFile">
+		SELECT FILE_NO
+			     , ORIGIN_NAME
+			     , CHANGE_FILE_NAME
+			     , FILE_PATH
+			  FROM IMG_FILE
+	 	WHERE FREE_BOARD_NO = ?
+	 		 AND DELETE_STATUS = 'N'
+	</entry>
+	
+	<entry key="updateBoard">
+		UPDATE FREE_BOARD
+              SET BOARD_TITLE = ?
+                  , BOARD_CONTENT = ?
+                  , CATEGORY = ? 
+        WHERE FREE_BOARD_NO = ?
+	</entry>
+	
+	<entry key="deleteImgFile">
+		UPDATE IMG_FILE
+		      SET DELETE_STATUS = 'Y'
+		 WHERE FILE_NO = ?
+	</entry>
+	
+	<entry key="updateImgFile">
+		INSERT INTO IMG_FILE(FILE_NO
+		              					  , FREE_BOARD_NO
+		            				      , ORIGIN_NAME
+		       				              , CHANGE_FILE_NAME
+		              					  , FILE_PATH
+		             				      , FILE_LEVEL)
+		          			   VALUES(SEQ_IMG_FILE.NEXTVAL
+		                				  , ?
+		      					          , ?
+		  					              , ?
+		                				  , ?
+		                  				  , ?)
+	</entry>
+	
+	<entry key="deleteBoard">
+		UPDATE FREE_BOARD
+			  SET DELETE_STATUS = 'N'
+ 		WHERE FREE_BOARD_NO = ?
+	</entry>
+	
+	<entry key="insertReply">
+			INSERT INTO REPLY(REPLY_NO
+                        , FREE_BOARD_NO
+                        , REPLY_CONTENT
+	              		, USER_NO)
+	       		   VALUES(SEQ_REPLY.NEXTVAL
+                        , ?
+	             		, ?
+                        , ?)
+	</entry>
+	
+	<entry key="selectReplyList">
+				SELECT REPLY_NO
+				  , R.USER_NO
+	   			  , REPLY_CONTENT
+	  		      , USER_NAME
+	   			  , TO_CHAR(CREATED_DATE, 'YY/MM/DD HH:MI:SS') CREATED_DATE
+	      FROM REPLY R
+	 	    JOIN USER_INFO U ON (R.USER_NO = U.USER_NO)
+	 	WHERE DELETE_STATUS = 'Y'
+	 	    AND FREE_BOARD_NO = ?
+   ORDER BY CREATED_DATE DESC
+	</entry>
+	
+	<entry key="deleteReply">
+				UPDATE REPLY
+           SET DELETE_STATUS = 'N'
+	     WHERE REPLY_NO = ?
+	</entry>
+	
+	<entry key="updateReply">
+			UPDATE REPLY
+              SET REPLY_CONTENT = ?
+        WHERE REPLY_NO = ?
+	</entry>
+	
+	<entry key="selectLike">
+		SELECT LIKE_COUNT
+    		      , DISLIKE_COUNT
+  		  FROM FREE_BOARD
+        WHERE FREE_BOARD_NO = ?
+	</entry>
+	
+	<entry key="updateLike">
+		UPDATE FREE_BOARD
+   			  SET LIKE_COUNT = LIKE_COUNT + 1
+ 		 WHERE FREE_BOARD_NO = ?
+	</entry>
+	
+	<entry key="updateDislike">
+		UPDATE FREE_BOARD
+   			  SET DISLIKE_COUNT = DISLIKE_COUNT + 1
+ 		 WHERE FREE_BOARD_NO = ?
+	</entry>
+	
+</properties>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

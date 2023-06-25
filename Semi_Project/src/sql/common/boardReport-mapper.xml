@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<entry key="reportFreeboard">
+					INSERT INTO DECLARATION(DECLARE_NO
+                    , DECLARE_TITLE
+	                , DECLARE_CONTENT
+	                , DECLARE_TYPE
+	                , FREE_BOARD_NO
+                    , USER_NO
+					, DECLARE_DATE)
+	           VALUES(SEQ_DECLARATION.NEXTVAL
+	                , ?
+	                , ?
+	                , '커뮤니티'
+	                , ?
+                    , ?
+					, SYSDATE)
+	</entry>
+	
+	<entry key="reportShareboard">
+					INSERT INTO DECLARATION(DECLARE_NO
+                    , DECLARE_TITLE
+	                , DECLARE_CONTENT
+	                , DECLARE_TYPE
+	                , SHARE_BOARD_NO
+                    , USER_NO
+					, DECLARE_DATE)
+	           VALUES(SEQ_DECLARATION.NEXTVAL
+	                , ?
+	                , ?
+	                , '커뮤니티'
+	                , ?
+                    , ?
+					, SYSDATE)
+	</entry>
+	
+</properties>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
